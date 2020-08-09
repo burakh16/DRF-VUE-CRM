@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    container_name: crm-project-db
+    env_file:
+      - ./backend/.envs/.local/.postgres
+    restart: unless-stopped
+  django:
+    build: 
+      context: .
+      dockerfile: docker/BackendDockerfile      
+    container_name: crm-project-backend  
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    env_file:
+        - ./backend/.envs/.local/.django
+        - ./backend/.envs/.local/.postgres
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

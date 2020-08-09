@@ -1,0 +1,8 @@
+FROM python:latest
+ENV PYTHONUNBUFFERED 1
+
+COPY backend/requirements.txt /app/
+COPY ./backend/requirements /app/requirements
+WORKDIR /app
+
+RUN pip install -r requirements.txt
