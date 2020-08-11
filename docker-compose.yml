@@ -22,3 +22,15 @@ services:
       - "8000:8000"
     depends_on:
       - db
+  vue:
+    build:
+      context: .
+      dockerfile: docker/FrontendDockerfile
+    container_name: crm-project-frontend
+    command: npm run serve
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - django
